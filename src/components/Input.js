@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import '../styles/Input.css'
 
 const Input = (props) => {
-  const [value, setValue] = useState('text goes here');
+  const [value, setValue] = useState('');
 
-  const { name } = props;
+  const { name, type } = props;
 
   const handleChange = (e) => {
     setValue(e.target.value)
@@ -15,9 +15,10 @@ const Input = (props) => {
       {name} 
       <input
       id={name}
-      type="text"
+      type={type}
       className="Input"
       value={value}
+      placeholder='input goes here'
       onChange={handleChange}
       />
     </label>

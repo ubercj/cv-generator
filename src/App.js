@@ -1,28 +1,42 @@
+import React, { useState } from 'react'
 import './styles/App.css'
 import InfoSection from './components/InfoSection'
 import SchoolSection from './components/SchoolSection'
 import WorkSection from './components/WorkSection'
 
 const App = () => {
+  const [info, setInfo] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  })
 
-  const infoLabels = ['Name', 'Email', 'Phone'];
-  const schoolLabels = ['School', 'Degree', 'GPA'];
-  const workLabels = ['Company', 'Title', 'Reason for leaving'];
+  const [school, setSchool] = useState({
+    school: '',
+    degree: '',
+    GPA: ''
+  })
+
+  const [work, setWork] = useState({
+    company: '',
+    title: '',
+    reason: ''
+  })
 
   return (
     <div className="App">
       <h1>CV Builder</h1>
       <InfoSection
-      otherName='for general information'
-      labelNames={infoLabels}
+      values={info}
+      update={setInfo}
       />
       <SchoolSection
-      otherName='for school information'
-      labelNames={schoolLabels}
+      values={school}
+      update={setSchool}
       />
       <WorkSection
-      otherName='for work information'
-      labelNames={workLabels}
+      values={work}
+      update={setWork}
       />
     </div>
   );
