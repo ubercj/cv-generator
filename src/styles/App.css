@@ -1,0 +1,7 @@
+.App {
+  border: 2px solid orange;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+}
