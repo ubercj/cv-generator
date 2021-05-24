@@ -1,28 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../styles/Section.css'
 import '../styles/Form.css'
-import Input from './Input';
 
 const Section = (props) => {
-
-  const { fields, values, update } = props;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted!');
-    console.log(e.target.elements);
-  }
+  const { onSubmit } = props;
 
   return (
-    <div className="Section">
-      <div>I'm a section!</div>
-      <form className="Form" onSubmit={handleSubmit}>
-        <Input name={fields[0].label} type={fields[0].type} update={update}/>
-        <Input name={fields[1].label} type={fields[1].type} update={update}/>
-        <Input name={fields[2].label} type={fields[2].type} update={update}/>
+    <section className="Section">
+      <h3>I'm a section! Fill out this form:</h3>
+      <form className="Form" onSubmit={onSubmit}>
+        {props.children}
         <button type='submit'>Submit</button>
       </form>
-    </div>
+    </section>
   )
 }
 

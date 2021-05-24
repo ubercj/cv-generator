@@ -1,27 +1,23 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../styles/Input.css'
 
 const Input = (props) => {
-  const [value, setValue] = useState('');
+  const { name, label, type, onChange, value } = props;
 
-  const { name, type } = props;
-
-  const handleChange = (e) => {
-    setValue(e.target.value)
-  }
-
-  return (
-    <label htmlFor={name}>
-      {name} 
-      <input
-      id={name}
-      type={type}
-      className="Input"
-      value={value}
-      placeholder='input goes here'
-      onChange={handleChange}
-      />
-    </label>
+return (
+    <div>
+      <label htmlFor={name}>
+        {label}
+        <input
+        id={name}
+        type={type}
+        className="Input"
+        value={value}
+        placeholder='input goes here'
+        onChange={(e) => onChange(e, name)}
+        />
+      </label>
+    </div>
   )
 }
 
