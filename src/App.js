@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './styles/App.css'
 import './styles/Section.css'
 import Input from './components/Input'
+import SchoolSection from './components/SchoolSection'
+import WorkSection from './components/WorkSection'
 
 const App = () => {
   // Info section
@@ -12,10 +14,18 @@ const App = () => {
   const [school, setSchool] = useState('');
   const [degree, setDegree] = useState('');
   const [gpa, setGpa] = useState('');
+
+  const [schoolArray, setSchoolArray] = useState([]);
+  const [showSchoolForm, setShowSchoolForm] = useState(false);
+
   // Work section
   const [company, setCompany] = useState('');
   const [title, setTitle] = useState('');
   const [reason, setReason] = useState('');
+
+  const [workArray, setWorkArray] = useState([]);
+  const [showWorkForm, setShowWorkForm] = useState(false);
+
   // For conditional rendering
   const [infoSubmitted, setInfoSubmitted] = useState(false);
   const [schoolSubmitted, setSchoolSubmitted] = useState(false);
@@ -58,9 +68,61 @@ const App = () => {
     }
   }
 
-  const handleSubmit = (e, cb) => {
+  const submitInfo = (e) => {
     e.preventDefault();
-    cb(true);
+    setInfoSubmitted(true);
+  }
+
+  const submitSchool = (e) => {
+    e.preventDefault();
+    setSchoolSubmitted(true);
+    setShowSchoolForm(false);
+
+    const schoolEntry = {
+      school: school,
+      degree: degree,
+      gpa: gpa
+    }
+
+    setSchoolArray([...schoolArray, schoolEntry]);
+    
+    setSchool('');
+    setDegree('');
+    setGpa('');
+  }
+
+  const removeSchool = (school) => {
+    let index = schoolArray.indexOf(school);
+
+    setSchoolArray((prevArr) => {
+      return prevArr.filter((item, idx) => idx !== index)
+    })
+  }
+
+  const submitWork = (e) => {
+    e.preventDefault();
+    setWorkSubmitted(true);
+    setShowWorkForm(false);
+
+    const workEntry = {
+      company: company,
+      title: title,
+      reason: reason
+    }
+
+    setWorkArray([...workArray, workEntry]);
+    
+    setCompany('');
+    setTitle('');
+    setReason('');
+  }
+
+  const removeWork = (work) => {
+    let index = workArray.indexOf(work);
+
+    setWorkArray((prevArr) => {
+      return prevArr.filter((item, idx) => idx !== index)
+    })
   }
 
   /*===================
@@ -70,7 +132,7 @@ const App = () => {
   const infoForm = (
     <section className="Section">
       <h3>I'm a section! Fill out this form:</h3>
-      <form className="Form" onSubmit={(e) => handleSubmit(e, setInfoSubmitted)}>
+      <form className="Form" onSubmit={submitInfo}>
         <Input name='name' label='Name: ' type='text'
         onChange={handleChange} value={name}/>
         <Input name='email' label='Email: ' type='email'
@@ -105,7 +167,7 @@ const App = () => {
   const schoolForm = (
     <section className="Section">
       <h3>I'm a section! Fill out this form:</h3>
-      <form className="Form" onSubmit={(e) => handleSubmit(e, setSchoolSubmitted)}>
+      <form className="Form" onSubmit={submitSchool}>
         <Input name='school' label='School: ' type='text'
         onChange={handleChange} value={school}/>
         <Input name='degree' label='Degree: ' type='text'
@@ -118,29 +180,39 @@ const App = () => {
   )
 
   const schoolSection = (
-    <section className="Section">
-      <h3>I'm a section that has been submitted!</h3>
-      <ul>
-        <li>School: {school}</li>
-        <li>Degree: {degree}</li>
-        <li>GPA: {gpa}</li>
-      </ul>
-      <button onClick={() => setSchoolSubmitted(false)}>Edit</button>
-    </section>
+    schoolArray.map((school) => {
+      return (
+      <div key={school.school} id={school.school}>
+        <SchoolSection school={school.school} degree={school.degree} gpa={school.gpa}/>
+        <button onClick={() => removeSchool(school)}>Delete (for now)</button>
+      </div>
+      )
+    })
   )
 
   const renderSchoolForm = () => {
-    if (schoolSubmitted) {
-      return schoolSection;
+    if (showSchoolForm) {
+      return (
+        <section className="Section">
+          {schoolSection}
+          {schoolForm}
+          <button onClick={() => setShowSchoolForm(true)}>Add a school</button>
+        </section>
+      );
     } else {
-      return schoolForm;
+      return (
+        <section className="Section">
+          {schoolSection}
+          <button onClick={() => setShowSchoolForm(true)}>Add a school</button>
+        </section>
+      )
     }
   }
 
   const workForm = (
     <section className="Section">
       <h3>I'm a section! Fill out this form:</h3>
-      <form className="Form" onSubmit={(e) => handleSubmit(e, setWorkSubmitted)}>
+      <form className="Form" onSubmit={submitWork}>
         <Input name='company' label='Company: ' type='text'
         onChange={handleChange} value={company}/>
         <Input name='title' label='Title: ' type='text'
@@ -153,48 +225,43 @@ const App = () => {
   )
 
   const workSection = (
-    <section className="Section">
-      <h3>I'm a section that has been submitted!</h3>
-      <ul>
-        <li>Company: {company}</li>
-        <li>Title: {title}</li>
-        <li>Reason for leaving: {reason}</li>
-      </ul>
-      <button onClick={() => setWorkSubmitted(false)}>Edit</button>
-    </section>
+    workArray.map((work) => {
+      return (
+      <div key={work.title} id={work.title}>
+        <WorkSection company={work.company} title={work.title} reason={work.reason}/>
+        <button onClick={() => removeWork(work)}>Delete (for now)</button>
+      </div>
+      )
+    })
   )
 
   const renderWorkForm = () => {
-    if (workSubmitted) {
-      return workSection;
+    if (showWorkForm) {
+      return (
+        <section className="Section">
+          {workSection}
+          {workForm}
+          <button onClick={() => setShowWorkForm(true)}>Add work experience</button>
+        </section>
+      );
     } else {
-      return workForm;
+      return (
+        <section className="Section">
+          {workSection}
+          <button onClick={() => setShowWorkForm(true)}>Add work experience</button>
+        </section>
+      )
     }
   }
 
-  const unsubmit = () => {
-    setInfoSubmitted(false);
-    setSchoolSubmitted(false);
-    setWorkSubmitted(false);
-  }
-
-  if (infoSubmitted && schoolSubmitted && workSubmitted) {
-    return (
-      <div className="App">
-        <h2>All done!</h2>
-        <button onClick={unsubmit}>Go Back</button>
-      </div>
-    )
-  } else {
-    return (
-      <div className="App">
-        <h1>CV Builder</h1>
-        {renderInfoForm()}
-        {renderSchoolForm()}
-        {renderWorkForm()}
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <h1>CV Builder</h1>
+      {renderInfoForm()}
+      {renderSchoolForm()}
+      {renderWorkForm()}
+    </div>
+  );
 }
 
 export default App;

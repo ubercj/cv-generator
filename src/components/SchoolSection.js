@@ -1,32 +1,16 @@
-import Section from './Section'
+import React from 'react';
 
 const SchoolSection =  (props) => {
-  const { values, update } = props;
-
-  const schoolField = {
-    label: 'School: ',
-    type: 'text'
-  }
-
-  const degreeField = {
-    label: 'Degree: ',
-    type: 'text'
-  }
-
-  const gpaField = {
-    label: 'GPA: ',
-    type: 'number',
-    min: '0',
-    max: '4.0',
-    step: '.1'
-  }
+  const { school, degree, gpa } = props;
 
   return (
-    <Section
-    fields={[schoolField, degreeField, gpaField]}
-    values={values}
-    update={update}
-    />
+    <div className="School">
+      <ul>
+        <li>School: {school}</li>
+        <li>Degree: {degree}</li>
+        <li>GPA: {gpa}</li>
+      </ul>
+    </div>
   )
 }
 

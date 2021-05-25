@@ -1,29 +1,16 @@
-import Section from './Section'
+import React from 'react';
 
 const WorkSection = (props) => {
-  const { values, update } = props;
-
-  const companyField = {
-    label: 'Company: ',
-    type: 'text'
-  }
-
-  const titleField = {
-    label: 'Title: ',
-    type: 'text'
-  }
-
-  const reasonField = {
-    label: 'Reason for leaving: ',
-    type: 'text'
-  }
+  const { company, title, reason } = props;
 
   return (
-    <Section
-    fields={[companyField, titleField, reasonField]}
-    values={values}
-    update={update}
-    />
+    <div className="Work">
+      <ul>
+        <li>Company: {company}</li>
+        <li>Title: {title}</li>
+        <li>Reason for leaving: {reason}</li>
+      </ul>
+    </div>
   )
 }
 
