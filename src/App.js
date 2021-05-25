@@ -1,40 +1,22 @@
 import React, { useState } from 'react'
 import './styles/App.css'
 import './styles/Section.css'
-// import Section from './components/Section'
 import Input from './components/Input'
 
 const App = () => {
-  // const [info, setInfo] = useState({
-  //   name: '',
-  //   email: '',
-  //   phone: ''
-  // })
-
-  // const [school, setSchool] = useState({
-  //   school: '',
-  //   degree: '',
-  //   GPA: ''
-  // })
-
-  // const [work, setWork] = useState({
-  //   company: '',
-  //   title: '',
-  //   reason: ''
-  // })
-
+  // Info section
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-
+  // School section
   const [school, setSchool] = useState('');
   const [degree, setDegree] = useState('');
   const [gpa, setGpa] = useState('');
-
+  // Work section
   const [company, setCompany] = useState('');
   const [title, setTitle] = useState('');
   const [reason, setReason] = useState('');
-
+  // For conditional rendering
   const [infoSubmitted, setInfoSubmitted] = useState(false);
   const [schoolSubmitted, setSchoolSubmitted] = useState(false);
   const [workSubmitted, setWorkSubmitted] = useState(false);
@@ -80,6 +62,10 @@ const App = () => {
     e.preventDefault();
     cb(true);
   }
+
+  /*===================
+  Conditional Rendering
+  ====================*/
 
   const infoForm = (
     <section className="Section">
@@ -186,14 +172,29 @@ const App = () => {
     }
   }
 
-  return (
-    <div className="App">
-      <h1>CV Builder</h1>
-      {renderInfoForm()}
-      {renderSchoolForm()}
-      {renderWorkForm()}
-    </div>
-  );
+  const unsubmit = () => {
+    setInfoSubmitted(false);
+    setSchoolSubmitted(false);
+    setWorkSubmitted(false);
+  }
+
+  if (infoSubmitted && schoolSubmitted && workSubmitted) {
+    return (
+      <div className="App">
+        <h2>All done!</h2>
+        <button onClick={unsubmit}>Go Back</button>
+      </div>
+    )
+  } else {
+    return (
+      <div className="App">
+        <h1>CV Builder</h1>
+        {renderInfoForm()}
+        {renderSchoolForm()}
+        {renderWorkForm()}
+      </div>
+    );
+  }
 }
 
 export default App;
