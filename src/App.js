@@ -14,7 +14,6 @@ import './styles/Form.css'
 import './styles/Section.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 const App = () => {
@@ -262,11 +261,8 @@ const App = () => {
       } else {
       return (
         <div key={item.id} id={item.id}>
-          <SchoolSection school={item.school} degree={item.degree} gpa={item.gpa} gradDate={item.gradDate}/>
-          <FontAwesomeIcon icon={faPencilAlt} className='icon'
-          onClick={() => editSchool(item)} />
-          <FontAwesomeIcon icon={faTrash} className='icon'
-          onClick={() => removeSchool(item)} />
+          <SchoolSection school={item.school} degree={item.degree} gpa={item.gpa} gradDate={item.gradDate} handleEdit={() => editSchool(item)}
+          handleDelete={() => removeSchool(item)}/>
         </div>
       )
       }
@@ -303,12 +299,9 @@ const App = () => {
           <WorkSection
             company={item.company} title={item.title}
             details={item.details} startDate={item.startDate}
-            endDate={item.endDate}
+            endDate={item.endDate} handleEdit={() => editWork(item)}
+            handleDelete={() => removeWork(item)}
           />
-          <FontAwesomeIcon icon={faPencilAlt} className='icon'
-          onClick={() => editWork(item)} />
-          <FontAwesomeIcon icon={faTrash} className='icon'
-          onClick={() => removeWork(item)} />
         </div>
         )
       }

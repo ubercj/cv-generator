@@ -11,13 +11,14 @@
   border-radius: 5px;
   box-shadow: rgb(90, 110, 100) 2.2px 2.2px;
 
-  padding: 5px;
+  padding: 22px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 p {
   overflow-wrap: break-word;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 

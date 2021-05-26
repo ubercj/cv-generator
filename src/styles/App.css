@@ -43,9 +43,9 @@ button:hover {
 
 .icon:hover {
   cursor: pointer;
-  color: rgb(170, 167, 131);
+  color: rgb(211, 200, 86);
 }
 
 button:hover > .icon {
-  color: rgb(170, 167, 131);
+  color: rgb(211, 200, 86);
 }

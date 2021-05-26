@@ -12,7 +12,7 @@ const InfoForm =  (props) => {
       onChange={handleChange} value={email}/>
       <Input name='phone' label='Phone: ' type='tel'
       onChange={handleChange} value={phone}/>
-      <button type='submit'>Submit</button>
+      <button type='submit' className='submit'>Submit</button>
     </form>
   )
 }
