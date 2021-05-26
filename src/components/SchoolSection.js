@@ -1,16 +1,15 @@
-import React from 'react';
+import React from 'react'
+import '../styles/Card.css'
 
 const SchoolSection =  (props) => {
   const { school, degree, gpa, gradDate } = props;
 
   return (
-    <div className="School">
-      <ul>
-        <li>School: {school}</li>
-        <li>Degree: {degree}</li>
-        <li>GPA: {gpa}</li>
-        <li>Graduation date: {gradDate}</li>
-      </ul>
+    <div className="Card">
+      <p><span>School:</span> {school}</p>
+      <p><span>Degree:</span> {degree}</p>
+      <p><span>GPA:</span> {gpa}</p>
+      <p><span>Graduation date:</span> {gradDate}</p>
     </div>
   )
 }

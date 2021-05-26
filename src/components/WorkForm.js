@@ -17,7 +17,7 @@ const WorkForm =  (props) => {
         onChange={handleChange} value={startDate}/>
         <Input name='endDate' label='End Date: ' type='date'
         onChange={handleChange} value={endDate}/>
-        <button type='submit'>Submit</button>
+        <button type='submit' className='submit'>Submit</button>
       </form>
   )
 }

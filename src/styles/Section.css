@@ -1,5 +1,14 @@
 .Section {
-  border: 1px solid blue;
+  border: 1px solid rgb(70, 70, 70);
+  border-radius: 5px;
+  box-shadow: rgb(180, 180, 180) 2.2px 2.2px;
+  background-color: rgb(120, 148, 134);
+  width: 70%;
   padding: 10px;
-  margin-bottom: 12px;
+  margin: 8px;
+  font-size: inherit;
+}
+
+h2 {
+  font-size: 2rem;
 }

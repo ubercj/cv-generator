@@ -12,11 +12,23 @@ const Input = (props) => {
           type={type}
           className="Input"
           value={value}
-          placeholder='input goes here'
+          placeholder='4.0 is the max'
           onChange={(e) => onChange(e, name)}
           min={options[0]}
           max={options[1]}
           step={options[2]}
+        />
+      )
+    } else if (type === 'textarea') {
+      return (
+        <textarea 
+          id={name}
+          type={type}
+          className="Input"
+          value={value}
+          onChange={(e) => onChange(e, name)}
+          rows={5}
+          columns={5}
         />
       )
     } else {
@@ -26,7 +38,6 @@ const Input = (props) => {
             type={type}
             className="Input"
             value={value}
-            placeholder='input goes here'
             onChange={(e) => onChange(e, name)}
           />
         )

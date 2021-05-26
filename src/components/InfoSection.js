@@ -1,29 +1,15 @@
-import Section from './Section'
+import '../styles/Section.css'
+import '../styles/Card.css'
 
 const InfoSection = (props) => {
-  const { values, update } = props;
-
-  const nameField = {
-    label: 'Name: ',
-    type: 'text'
-  }
-
-  const emailField = {
-    label: 'Email: ',
-    type: 'email'
-  }
-
-  const phoneField = {
-    label: 'Phone: ',
-    type: 'tel'
-  }
+  const { name, email, phone } = props;
 
   return (
-    <Section
-    fields={[nameField, emailField, phoneField]}
-    values={values}
-    update={update}
-    />
+    <div className="Card">
+      <p><span>Name:</span> {name}</p>
+      <p><span>Email:</span> {email}</p>
+      <p><span>Phone:</span> {phone}</p>
+    </div>
   )
 }
 

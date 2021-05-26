@@ -16,7 +16,7 @@ const SchoolForm =  (props) => {
       onChange={handleChange} value={gpa} options={gpaConstraints}/>
       <Input name='gradDate' label='Graduation date: ' type='date'
       onChange={handleChange} value={gradDate}/>
-      <button type='submit'>Submit</button>
+      <button type='submit' className='submit'>Submit</button>
     </form>
   )
 }

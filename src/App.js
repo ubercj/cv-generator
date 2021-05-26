@@ -1,12 +1,21 @@
 import React, { useState } from 'react'
-import './styles/App.css'
-import './styles/Section.css'
-import Input from './components/Input'
+import uniqid from 'uniqid'
+
+import Navbar from './components/Navbar'
+import InfoSection from './components/InfoSection'
+import InfoForm from './components/InfoForm'
 import SchoolSection from './components/SchoolSection'
 import SchoolForm from './components/SchoolForm'
 import WorkSection from './components/WorkSection'
 import WorkForm from './components/WorkForm'
-import uniqid from 'uniqid'
+
+import './styles/App.css'
+import './styles/Form.css'
+import './styles/Section.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 const App = () => {
   /*===================
@@ -213,39 +222,30 @@ const App = () => {
   /*===================
   Rendering Components
   ====================*/
-
-  const infoForm = (
-    <section className="Section">
-      <h2>Contact Information</h2>
-      <form className="Form" onSubmit={submitInfo}>
-        <Input name='name' label='Name: ' type='text'
-        onChange={handleChange} value={name}/>
-        <Input name='email' label='Email: ' type='email'
-        onChange={handleChange} value={email}/>
-        <Input name='phone' label='Phone: ' type='tel'
-        onChange={handleChange} value={phone}/>
-        <button type='submit'>Submit</button>
-      </form>
-    </section>
-  )
-
-  const infoSection = (
-    <section className="Section">
-      <h2>Contact Information</h2>
-      <ul>
-        <li>Name: {name}</li>
-        <li>Email: {email}</li>
-        <li>Phone: {phone}</li>
-      </ul>
-      <button onClick={() => setInfoSubmitted(false)}>Edit</button>
-    </section>
-  )
-
   const renderInfoForm = () => {
     if (infoSubmitted) {
-      return infoSection;
+      return ( 
+        <section className="Section">
+          <header>
+            <h2>Contact Information</h2>
+            <FontAwesomeIcon icon={faPencilAlt} className='icon'
+            onClick={() => setInfoSubmitted(false)} />
+          </header>
+          <InfoSection
+            name={name} email={email} phone={phone}
+          />
+        </section>
+      );
     } else {
-      return infoForm;
+      return (
+        <section className="Section">
+          <h2>Contact Information</h2>
+          <InfoForm
+            handleSubmit={submitInfo} handleChange={handleChange}
+            name={name} email={email} phone={phone}
+          />
+        </section>
+      );
     }
   }
 
@@ -263,8 +263,10 @@ const App = () => {
       return (
         <div key={item.id} id={item.id}>
           <SchoolSection school={item.school} degree={item.degree} gpa={item.gpa} gradDate={item.gradDate}/>
-          <button onClick={() => editSchool(item)}>Edit</button>
-          <button onClick={() => removeSchool(item)}>Delete</button>
+          <FontAwesomeIcon icon={faPencilAlt} className='icon'
+          onClick={() => editSchool(item)} />
+          <FontAwesomeIcon icon={faTrash} className='icon'
+          onClick={() => removeSchool(item)} />
         </div>
       )
       }
@@ -276,7 +278,10 @@ const App = () => {
       <section className="Section">
         <h2>Education</h2>
         {schoolSection}
-        <button onClick={addSchool}>Add Education</button>
+        <button onClick={addSchool}>
+          Add Education
+          <FontAwesomeIcon icon={faPlusCircle} className='icon' />
+        </button>
       </section>
     )
   }
@@ -300,8 +305,10 @@ const App = () => {
             details={item.details} startDate={item.startDate}
             endDate={item.endDate}
           />
-          <button onClick={() => editWork(item)}>Edit</button>
-          <button onClick={() => removeWork(item)}>Delete</button>
+          <FontAwesomeIcon icon={faPencilAlt} className='icon'
+          onClick={() => editWork(item)} />
+          <FontAwesomeIcon icon={faTrash} className='icon'
+          onClick={() => removeWork(item)} />
         </div>
         )
       }
@@ -313,14 +320,17 @@ const App = () => {
       <section className="Section">
         <h2>Work Experience</h2>
         {workSection}
-        <button onClick={addWork}>Add Work Experience</button>
+        <button onClick={addWork}>
+          Add Experience
+          <FontAwesomeIcon icon={faPlusCircle} className='icon' />  
+        </button>
       </section>
     )
   }
 
   return (
     <div className="App">
-      <h1>CV Builder</h1>
+      <Navbar />
       {renderInfoForm()}
       {renderSchoolForm()}
       {renderWorkForm()}

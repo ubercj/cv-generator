@@ -1,4 +1,7 @@
-.Form {
+.Card {
+  font-size: 1.15rem;
+  font-family: inherit;
+
   display: flex;
   flex-direction: column;
 
@@ -8,19 +11,16 @@
   border-radius: 5px;
   box-shadow: rgb(90, 110, 100) 2.2px 2.2px;
 
-  padding: 8px;
+  padding: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.submit {
-  display: block;
-  width: fit-content;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: white;
+p {
+  overflow-wrap: break-word;
+  margin-bottom: 10px;
 }
 
-.submit:hover {
-  background-color: rgb(199, 199, 148);
+span {
+  font-weight: 700;
 }
