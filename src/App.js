@@ -3,20 +3,36 @@ import './styles/App.css'
 import './styles/Section.css'
 import Input from './components/Input'
 import SchoolSection from './components/SchoolSection'
+import SchoolForm from './components/SchoolForm'
 import WorkSection from './components/WorkSection'
+import WorkForm from './components/WorkForm'
+import uniqid from 'uniqid'
 
 const App = () => {
+  /*===================
+  State
+  ====================*/
+
   // Info section
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+
+  const [infoSubmitted, setInfoSubmitted] = useState(false);
+
   // School section
   const [school, setSchool] = useState('');
   const [degree, setDegree] = useState('');
   const [gpa, setGpa] = useState('');
 
   const [schoolArray, setSchoolArray] = useState([]);
-  const [showSchoolForm, setShowSchoolForm] = useState(false);
+  const [currentSchool, setCurrentSchool] = useState('')
+  const emptySchool = {
+    school: '',
+    degree: '',
+    gpa: '',
+    id: uniqid()
+  }
 
   // Work section
   const [company, setCompany] = useState('');
@@ -24,16 +40,20 @@ const App = () => {
   const [reason, setReason] = useState('');
 
   const [workArray, setWorkArray] = useState([]);
-  const [showWorkForm, setShowWorkForm] = useState(false);
+  const [currentWork, setCurrentWork] = useState('')
+  const emptyWork = {
+    company: '',
+    title: '',
+    reason: '',
+    id: uniqid()
+  }
 
-  // For conditional rendering
-  const [infoSubmitted, setInfoSubmitted] = useState(false);
-  const [schoolSubmitted, setSchoolSubmitted] = useState(false);
-  const [workSubmitted, setWorkSubmitted] = useState(false);
+  /*===================
+  Functions
+  ====================*/
 
   const handleChange = (e, name) => {
     let newValue = e.target.value;
-
     switch (name) {
       case 'name':
         setName(newValue);
@@ -73,65 +93,103 @@ const App = () => {
     setInfoSubmitted(true);
   }
 
+  // Education Logic
+
+  const addSchool = () => {
+    setCurrentSchool(emptySchool);
+    setSchool('');
+    setDegree('');
+    setGpa('');
+    setSchoolArray([...schoolArray, emptySchool]);
+  }
+
   const submitSchool = (e) => {
     e.preventDefault();
-    setSchoolSubmitted(true);
-    setShowSchoolForm(false);
 
     const schoolEntry = {
       school: school,
       degree: degree,
-      gpa: gpa
+      gpa: gpa,
+      id: currentSchool.id
     }
 
-    setSchoolArray([...schoolArray, schoolEntry]);
+    const idx = schoolArray.indexOf(currentSchool);
+    const newArray = [...schoolArray];
+    newArray[idx] = schoolEntry;
+    setSchoolArray(newArray);
     
+    setCurrentSchool('');
     setSchool('');
     setDegree('');
     setGpa('');
   }
 
+  const editSchool = (school) => {
+    setCurrentSchool(school);
+    setSchool(school.school);
+    setDegree(school.degree);
+    setGpa(school.gpa);
+  }
+
   const removeSchool = (school) => {
     let index = schoolArray.indexOf(school);
-
     setSchoolArray((prevArr) => {
       return prevArr.filter((item, idx) => idx !== index)
     })
   }
 
+  // Work Logic
+
+  const addWork = () => {
+    setCurrentWork(emptyWork);
+    setCompany('');
+    setTitle('');
+    setReason('');
+    setWorkArray([...workArray, emptyWork]);
+  }
+
   const submitWork = (e) => {
     e.preventDefault();
-    setWorkSubmitted(true);
-    setShowWorkForm(false);
 
     const workEntry = {
       company: company,
       title: title,
-      reason: reason
+      reason: reason,
+      id: currentWork.id
     }
 
-    setWorkArray([...workArray, workEntry]);
+    const idx = workArray.indexOf(currentWork);
+    const newArray = [...workArray];
+    newArray[idx] = workEntry;
+    setWorkArray(newArray);
     
+    setCurrentWork('');
     setCompany('');
     setTitle('');
     setReason('');
   }
 
+  const editWork = (work) => {
+    setCurrentWork(work);
+    setCompany(work.company);
+    setTitle(work.title);
+    setReason(work.reason);
+  }
+
   const removeWork = (work) => {
     let index = workArray.indexOf(work);
-
     setWorkArray((prevArr) => {
       return prevArr.filter((item, idx) => idx !== index)
     })
   }
 
   /*===================
-  Conditional Rendering
+  Rendering Components
   ====================*/
 
   const infoForm = (
     <section className="Section">
-      <h3>I'm a section! Fill out this form:</h3>
+      <h2>Contact Information</h2>
       <form className="Form" onSubmit={submitInfo}>
         <Input name='name' label='Name: ' type='text'
         onChange={handleChange} value={name}/>
@@ -146,7 +204,7 @@ const App = () => {
 
   const infoSection = (
     <section className="Section">
-      <h3>I'm a section that has been submitted!</h3>
+      <h2>Contact Information</h2>
       <ul>
         <li>Name: {name}</li>
         <li>Email: {email}</li>
@@ -164,94 +222,68 @@ const App = () => {
     }
   }
 
-  const schoolForm = (
-    <section className="Section">
-      <h3>I'm a section! Fill out this form:</h3>
-      <form className="Form" onSubmit={submitSchool}>
-        <Input name='school' label='School: ' type='text'
-        onChange={handleChange} value={school}/>
-        <Input name='degree' label='Degree: ' type='text'
-        onChange={handleChange} value={degree}/>
-        <Input name='gpa' label='GPA: ' type='number'
-        onChange={handleChange} value={gpa}/>
-        <button type='submit'>Submit</button>
-      </form>
-    </section>
-  )
-
   const schoolSection = (
-    schoolArray.map((school) => {
+    schoolArray.map((item) => {
+      if (item === currentSchool) {
+        return (
+          // There can only be one form at a time, but I set a key here to avoid the annoying error in the console
+          <SchoolForm key={uniqid()}
+          handleSubmit={submitSchool} handleChange={handleChange}
+          school={school} degree={degree} gpa={gpa}
+          />
+        )
+      } else {
       return (
-      <div key={school.school} id={school.school}>
-        <SchoolSection school={school.school} degree={school.degree} gpa={school.gpa}/>
-        <button onClick={() => removeSchool(school)}>Delete (for now)</button>
-      </div>
+        <div key={item.id} id={item.id}>
+          <SchoolSection school={item.school} degree={item.degree} gpa={item.gpa}/>
+          <button onClick={() => editSchool(item)}>Edit</button>
+          <button onClick={() => removeSchool(item)}>Delete</button>
+        </div>
       )
+      }
     })
   )
 
   const renderSchoolForm = () => {
-    if (showSchoolForm) {
-      return (
-        <section className="Section">
-          {schoolSection}
-          {schoolForm}
-          <button onClick={() => setShowSchoolForm(true)}>Add a school</button>
-        </section>
-      );
-    } else {
-      return (
-        <section className="Section">
-          {schoolSection}
-          <button onClick={() => setShowSchoolForm(true)}>Add a school</button>
-        </section>
-      )
-    }
+    return (
+      <section className="Section">
+        <h2>Education</h2>
+        {schoolSection}
+        <button onClick={addSchool}>Add Education</button>
+      </section>
+    )
   }
 
-  const workForm = (
-    <section className="Section">
-      <h3>I'm a section! Fill out this form:</h3>
-      <form className="Form" onSubmit={submitWork}>
-        <Input name='company' label='Company: ' type='text'
-        onChange={handleChange} value={company}/>
-        <Input name='title' label='Title: ' type='text'
-        onChange={handleChange} value={title}/>
-        <Input name='reason' label='Reason for leaving: ' type='text'
-        onChange={handleChange} value={reason}/>
-        <button type='submit'>Submit</button>
-      </form>
-    </section>
-  )
-
   const workSection = (
-    workArray.map((work) => {
-      return (
-      <div key={work.title} id={work.title}>
-        <WorkSection company={work.company} title={work.title} reason={work.reason}/>
-        <button onClick={() => removeWork(work)}>Delete (for now)</button>
-      </div>
-      )
+    workArray.map((item) => {
+      if (item === currentWork) {
+        return (
+          // There can only be one form at a time, but I set a key here to avoid the annoying error in the console
+          <WorkForm key={uniqid()}
+          handleSubmit={submitWork} handleChange={handleChange}
+          company={company} title={title} reason={reason}
+          />
+        )
+      } else {
+        return (
+        <div key={item.title} id={item.title}>
+          <WorkSection company={item.company} title={item.title} reason={item.reason}/>
+          <button onClick={() => editWork(item)}>Edit</button>
+          <button onClick={() => removeWork(item)}>Delete</button>
+        </div>
+        )
+      }
     })
   )
 
   const renderWorkForm = () => {
-    if (showWorkForm) {
-      return (
-        <section className="Section">
-          {workSection}
-          {workForm}
-          <button onClick={() => setShowWorkForm(true)}>Add work experience</button>
-        </section>
-      );
-    } else {
-      return (
-        <section className="Section">
-          {workSection}
-          <button onClick={() => setShowWorkForm(true)}>Add work experience</button>
-        </section>
-      )
-    }
+    return (
+      <section className="Section">
+        <h2>Work Experience</h2>
+        {workSection}
+        <button onClick={addWork}>Add Work Experience</button>
+      </section>
+    )
   }
 
   return (
