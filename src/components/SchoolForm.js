@@ -2,7 +2,8 @@ import React from 'react';
 import Input from './Input';
 
 const SchoolForm =  (props) => {
-  const { handleSubmit, handleChange, school, degree, gpa, gradDate} = props;
+  const { handleSubmit, handleChange, school, degree,
+    gpa, gradDate, handleCancel} = props;
 
   const gpaConstraints = ['0', '4.0', '.1']
 
@@ -16,7 +17,10 @@ const SchoolForm =  (props) => {
       onChange={handleChange} value={gpa} options={gpaConstraints}/>
       <Input name='gradDate' label='Graduation date: ' type='date'
       onChange={handleChange} value={gradDate}/>
-      <button type='submit' className='submit'>Submit</button>
+      <div className='buttons'>
+        <button type='submit' className='submit'>Submit</button>
+        <button onClick={handleCancel} className='cancel'>Cancel</button>
+      </div>
     </form>
   )
 }

@@ -3,7 +3,7 @@ import Input from './Input';
 
 const WorkForm =  (props) => {
   const { handleSubmit, handleChange, company, title,
-    details, startDate, endDate } = props;
+    details, startDate, endDate, handleCancel } = props;
 
   return (
     <form className="Form" onSubmit={handleSubmit}>
@@ -17,7 +17,10 @@ const WorkForm =  (props) => {
         onChange={handleChange} value={startDate}/>
         <Input name='endDate' label='End Date: ' type='date'
         onChange={handleChange} value={endDate}/>
-        <button type='submit' className='submit'>Submit</button>
+        <div className='buttons'>
+          <button type='submit' className='submit'>Submit</button>
+          <button onClick={handleCancel} className='cancel'>Cancel</button>
+        </div>
       </form>
   )
 }

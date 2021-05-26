@@ -41,7 +41,8 @@ const App = () => {
     degree: '',
     gpa: '',
     gradDate: '',
-    id: uniqid()
+    id: uniqid(),
+    submitted: false
   }
 
   // Work section
@@ -59,7 +60,8 @@ const App = () => {
     details: '',
     startDate: '',
     endDate: '',
-    id: uniqid()
+    id: uniqid(),
+    submitted: false
   }
 
   /*===================
@@ -135,7 +137,8 @@ const App = () => {
       degree: degree,
       gpa: gpa,
       gradDate: gradDate,
-      id: currentSchool.id
+      id: currentSchool.id,
+      submitted: true
     }
 
     const idx = schoolArray.indexOf(currentSchool);
@@ -165,6 +168,19 @@ const App = () => {
     })
   }
 
+  const cancelSchool = (school) => {
+
+    if (school.submitted) {
+      setCurrentSchool('');
+      setSchool('');
+      setDegree('');
+      setGpa('');
+      setGradDate('');
+    } else {
+      removeSchool(school);
+    }
+  }
+
   // Work Logic
 
   const addWork = () => {
@@ -186,7 +202,8 @@ const App = () => {
       details: details,
       startDate: startDate,
       endDate: endDate,
-      id: currentWork.id
+      id: currentWork.id,
+      submitted: true
     }
 
     const idx = workArray.indexOf(currentWork);
@@ -216,6 +233,19 @@ const App = () => {
     setWorkArray((prevArr) => {
       return prevArr.filter((item, idx) => idx !== index)
     })
+  }
+
+  const cancelWork = (work) => {
+    if (work.submitted) {
+      setCurrentWork('');
+      setCompany('');
+      setTitle('');
+      setDetails('');
+      setStartDate('');
+      setEndDate('');
+    } else {
+      removeWork(work);
+    }
   }
 
   /*===================
@@ -256,6 +286,7 @@ const App = () => {
           <SchoolForm key={'schoolForm'}
           handleSubmit={submitSchool} handleChange={handleChange}
           school={school} degree={degree} gpa={gpa} gradDate={gradDate}
+          handleCancel={() => cancelSchool(item)}
           />
         )
       } else {
@@ -291,11 +322,12 @@ const App = () => {
           handleSubmit={submitWork} handleChange={handleChange}
           company={company} title={title} details={details}
           startDate={startDate} endDate={endDate}
+          handleCancel={() => cancelWork(item)}
           />
         )
       } else {
         return (
-        <div key={item.title} id={item.title}>
+        <div key={item.id} id={item.id}>
           <WorkSection
             company={item.company} title={item.title}
             details={item.details} startDate={item.startDate}
