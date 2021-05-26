@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SchoolSection =  (props) => {
-  const { school, degree, gpa } = props;
+  const { school, degree, gpa, gradDate } = props;
 
   return (
     <div className="School">
@@ -9,6 +9,7 @@ const SchoolSection =  (props) => {
         <li>School: {school}</li>
         <li>Degree: {degree}</li>
         <li>GPA: {gpa}</li>
+        <li>Graduation date: {gradDate}</li>
       </ul>
     </div>
   )

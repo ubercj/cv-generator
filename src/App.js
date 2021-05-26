@@ -24,6 +24,7 @@ const App = () => {
   const [school, setSchool] = useState('');
   const [degree, setDegree] = useState('');
   const [gpa, setGpa] = useState('');
+  const [gradDate, setGradDate] = useState('');
 
   const [schoolArray, setSchoolArray] = useState([]);
   const [currentSchool, setCurrentSchool] = useState('')
@@ -31,20 +32,25 @@ const App = () => {
     school: '',
     degree: '',
     gpa: '',
+    gradDate: '',
     id: uniqid()
   }
 
   // Work section
   const [company, setCompany] = useState('');
   const [title, setTitle] = useState('');
-  const [reason, setReason] = useState('');
+  const [details, setDetails] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const [workArray, setWorkArray] = useState([]);
   const [currentWork, setCurrentWork] = useState('')
   const emptyWork = {
     company: '',
     title: '',
-    reason: '',
+    details: '',
+    startDate: '',
+    endDate: '',
     id: uniqid()
   }
 
@@ -73,14 +79,23 @@ const App = () => {
       case 'gpa':
         setGpa(newValue);
         break;
+      case 'gradDate':
+        setGradDate(newValue);
+        break;
       case 'company':
         setCompany(newValue);
         break;
       case 'title':
         setTitle(newValue);
         break;
-      case 'reason':
-        setReason(newValue);
+      case 'details':
+        setDetails(newValue);
+        break;
+      case 'startDate':
+        setStartDate(newValue);
+        break;
+      case 'endDate':
+        setEndDate(newValue);
         break;
       default:
         console.log('Whoops, something is breaking');
@@ -100,6 +115,7 @@ const App = () => {
     setSchool('');
     setDegree('');
     setGpa('');
+    setGradDate('');
     setSchoolArray([...schoolArray, emptySchool]);
   }
 
@@ -110,6 +126,7 @@ const App = () => {
       school: school,
       degree: degree,
       gpa: gpa,
+      gradDate: gradDate,
       id: currentSchool.id
     }
 
@@ -122,6 +139,7 @@ const App = () => {
     setSchool('');
     setDegree('');
     setGpa('');
+    setGradDate('');
   }
 
   const editSchool = (school) => {
@@ -129,6 +147,7 @@ const App = () => {
     setSchool(school.school);
     setDegree(school.degree);
     setGpa(school.gpa);
+    setGradDate(school.gradDate);
   }
 
   const removeSchool = (school) => {
@@ -144,7 +163,9 @@ const App = () => {
     setCurrentWork(emptyWork);
     setCompany('');
     setTitle('');
-    setReason('');
+    setDetails('');
+    setStartDate('');
+    setEndDate('');
     setWorkArray([...workArray, emptyWork]);
   }
 
@@ -154,7 +175,9 @@ const App = () => {
     const workEntry = {
       company: company,
       title: title,
-      reason: reason,
+      details: details,
+      startDate: startDate,
+      endDate: endDate,
       id: currentWork.id
     }
 
@@ -166,14 +189,18 @@ const App = () => {
     setCurrentWork('');
     setCompany('');
     setTitle('');
-    setReason('');
+    setDetails('');
+    setStartDate('');
+    setEndDate('');
   }
 
   const editWork = (work) => {
     setCurrentWork(work);
     setCompany(work.company);
     setTitle(work.title);
-    setReason(work.reason);
+    setDetails(work.details);
+    setStartDate(work.startDate);
+    setEndDate(work.endDate);
   }
 
   const removeWork = (work) => {
@@ -227,15 +254,15 @@ const App = () => {
       if (item === currentSchool) {
         return (
           // There can only be one form at a time, but I set a key here to avoid the annoying error in the console
-          <SchoolForm key={uniqid()}
+          <SchoolForm key={'schoolForm'}
           handleSubmit={submitSchool} handleChange={handleChange}
-          school={school} degree={degree} gpa={gpa}
+          school={school} degree={degree} gpa={gpa} gradDate={gradDate}
           />
         )
       } else {
       return (
         <div key={item.id} id={item.id}>
-          <SchoolSection school={item.school} degree={item.degree} gpa={item.gpa}/>
+          <SchoolSection school={item.school} degree={item.degree} gpa={item.gpa} gradDate={item.gradDate}/>
           <button onClick={() => editSchool(item)}>Edit</button>
           <button onClick={() => removeSchool(item)}>Delete</button>
         </div>
@@ -259,15 +286,20 @@ const App = () => {
       if (item === currentWork) {
         return (
           // There can only be one form at a time, but I set a key here to avoid the annoying error in the console
-          <WorkForm key={uniqid()}
+          <WorkForm key={'workForm'}
           handleSubmit={submitWork} handleChange={handleChange}
-          company={company} title={title} reason={reason}
+          company={company} title={title} details={details}
+          startDate={startDate} endDate={endDate}
           />
         )
       } else {
         return (
         <div key={item.title} id={item.title}>
-          <WorkSection company={item.company} title={item.title} reason={item.reason}/>
+          <WorkSection
+            company={item.company} title={item.title}
+            details={item.details} startDate={item.startDate}
+            endDate={item.endDate}
+          />
           <button onClick={() => editWork(item)}>Edit</button>
           <button onClick={() => removeWork(item)}>Delete</button>
         </div>
