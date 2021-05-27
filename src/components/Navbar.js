@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
     <nav className="Navbar">
-      <h1>CV Builder</h1>
+      <h1>CV Generator</h1>
       <a href="https://github.com/ubercj" className="github"><FontAwesomeIcon icon={faGithub} /></a>
     </nav>
   )
