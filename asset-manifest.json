@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/cv-generator/static/css/main.b7fc0b71.chunk.css",
+    "main.js": "/cv-generator/static/js/main.533837ae.chunk.js",
+    "main.js.map": "/cv-generator/static/js/main.533837ae.chunk.js.map",
+    "runtime-main.js": "/cv-generator/static/js/runtime-main.c3db826d.js",
+    "runtime-main.js.map": "/cv-generator/static/js/runtime-main.c3db826d.js.map",
+    "static/js/2.a16e1f13.chunk.js": "/cv-generator/static/js/2.a16e1f13.chunk.js",
+    "static/js/2.a16e1f13.chunk.js.map": "/cv-generator/static/js/2.a16e1f13.chunk.js.map",
+    "index.html": "/cv-generator/index.html",
+    "static/css/main.b7fc0b71.chunk.css.map": "/cv-generator/static/css/main.b7fc0b71.chunk.css.map",
+    "static/js/2.a16e1f13.chunk.js.LICENSE.txt": "/cv-generator/static/js/2.a16e1f13.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c3db826d.js",
+    "static/js/2.a16e1f13.chunk.js",
+    "static/css/main.b7fc0b71.chunk.css",
+    "static/js/main.533837ae.chunk.js"
+  ]
+}
