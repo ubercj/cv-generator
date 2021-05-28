@@ -8,6 +8,8 @@ This is a project from The Odin Project's full-stack web development curriculum.
 
 Working on this project really hammered home the basic React fundamentals of passing down props and lifting up state. I also couldn't help myself and jumped ahead to using only functional components with State hooks instead of Class components. I expected it to be hard to make that switch, but it was surprisingly intuitive.
 
+*(Edit: It turns out one of the later assignments was to come back and rewrite this application using functional components and `useState` anyway.)*
+
 ## Where I struggled
 
 On multiple occassions, I kind of tore everything down and reconceptualized the whole application. It was difficult for me to decide where State was going to live and what needed to be broken out into new components. I feel like I still haven't completely "gotten" the React best practices, and my application doesn't feel as reusable as I would like for it to be.
